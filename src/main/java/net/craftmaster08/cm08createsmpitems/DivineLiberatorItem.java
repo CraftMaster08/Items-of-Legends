@@ -333,7 +333,7 @@ public class DivineLiberatorItem extends SwordItem {
                     50, 1.0, 1.0, 1.0, 0.0);
 
             // Schedule the wave movement
-            new WaveHandler(player, level);
+            new WaveHandler(player, level, stack);
         }
     }
 
@@ -341,6 +341,7 @@ public class DivineLiberatorItem extends SwordItem {
     private static class WaveHandler {
         private final Player player;
         private final ServerLevel level;
+        private final ItemStack stack; // Store the ItemStack
         private final Vec3 direction;
         private Vec3 position;
         private int distanceTraveled;
@@ -350,9 +351,10 @@ public class DivineLiberatorItem extends SwordItem {
         private final int maxDistance = 100; // Max 100 blocks
         private int soundTimer = 0; // Timer for wave sound
 
-        public WaveHandler(Player player, Level level) {
+        public WaveHandler(Player player, Level level, ItemStack stack) {
             this.player = player;
             this.level = (ServerLevel) level;
+            this.stack = stack.copy(); // Copy to prevent modifications
             this.direction = player.getLookAngle().normalize();
             this.position = player.position().add(0, 1.5, 0); // Start at player's eye level
             this.distanceTraveled = 0;
@@ -474,17 +476,17 @@ public class DivineLiberatorItem extends SwordItem {
                 if (!hitEntities.contains(entity) && entity instanceof LivingEntity livingEntity) {
                     hitEntities.add(entity);
                     try {
-                        // Apply damage using the custom DamageSource from ModDamageTypes
-                        livingEntity.hurt(ModDamageTypes.waveAttack(level, player), 48.0F); // 24 hearts
-                        LOGGER.debug("Applied wave damage to " + livingEntity.getName().getString());
+                        // Apply damage using the custom DamageSource with ItemStack
+                        livingEntity.hurt(ModDamageTypes.waveAttack(level, player, stack), 48.0F); // 24 hearts
+                        LOGGER.debug("Applied wave damage to {} with item {}", livingEntity.getName().getString(), stack.getDisplayName().getString());
                     } catch (IllegalStateException e) {
-                        LOGGER.error("Failed to apply wave damage: " + e.getMessage());
+                        LOGGER.error("Failed to apply wave damage: {}", e.getMessage());
                         continue; // Skip this entity to prevent crash
                     }
                     // Mark players as "cleansed" for follow-up death message
                     if (livingEntity instanceof Player targetPlayer) {
                         targetPlayer.getPersistentData().putLong("DivineLiberatorCleansed", level.getGameTime());
-                        LOGGER.debug("Marked player as cleansed: " + targetPlayer.getName().getString());
+                        LOGGER.debug("Marked player as cleansed: {}", targetPlayer.getName().getString());
                     }
                     // Set the entity on fire for 5 seconds (100 ticks)
                     livingEntity.setSecondsOnFire(5);
