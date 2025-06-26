@@ -167,7 +167,7 @@ public class SpecialAbilityDefenseSystem {
         }
     };
 
-    public static final DefenseHandler CUSTOM_SWORD_DEFENSE = (target, event, level) -> {
+    public static final DefenseHandler COOL_STICK_DEFENSE = (target, event, level) -> {
         // Protective particle shield
         double x = target.getX(), y = target.getY() + 1.0, z = target.getZ();
         for (int i = 0; i < 30; i++) {

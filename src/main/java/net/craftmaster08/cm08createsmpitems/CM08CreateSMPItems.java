@@ -2,9 +2,13 @@ package net.craftmaster08.cm08createsmpitems;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -20,8 +24,8 @@ public class CM08CreateSMPItems {
     // Register items
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    public static final RegistryObject<Item> CUSTOM_SWORD = ITEMS.register("custom_sword",
-            () -> new CustomSwordItem(new Item.Properties()));
+    public static final RegistryObject<Item> COOL_STICK = ITEMS.register("cool_stick",
+            () -> new CoolStickItem(new Item.Properties()));
     public static final RegistryObject<Item> DIVINE_LIBERATOR = ITEMS.register("divine_liberator",
             () -> new DivineLiberatorItem(new Item.Properties()));
     public static final RegistryObject<Item> IMMORTAL_SHADOW = ITEMS.register("immortal_shadow",
@@ -45,11 +49,30 @@ public class CM08CreateSMPItems {
         ITEMS.register(modEventBus);
         TABS.register(modEventBus);
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
+        MinecraftForge.EVENT_BUS.addListener(this::onBlockBreak); // Register block break event
         modEventBus.addListener(this::onCommonSetup);
     }
 
     private void onRegisterCommands(RegisterCommandsEvent event) {
         ModCommands.register(event.getDispatcher());
+    }
+
+    private void onBlockBreak(BlockEvent.BreakEvent event) {
+        // Check if the broken block is a leaf block
+        if (event.getState().is(BlockTags.LEAVES)) {
+            // 1/3000 chance to drop CoolStickItem
+            if (event.getLevel().getRandom().nextFloat() < (1.0F / 3.0F)) {
+                event.getLevel().addFreshEntity(
+                        new ItemEntity(
+                                (Level) event.getLevel(),
+                                event.getPos().getX() + 0.5,
+                                event.getPos().getY() + 0.5,
+                                event.getPos().getZ() + 0.5,
+                                new ItemStack(COOL_STICK.get())
+                        )
+                );
+            }
+        }
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
@@ -71,9 +94,9 @@ public class CM08CreateSMPItems {
                     }
             );
             SpecialAbilityDefenseSystem.registerSpecialAbility(
-                    CUSTOM_SWORD.get(),
+                    COOL_STICK.get(),
                     null, // Uses playerAttack, not a custom damage source
-                    SpecialAbilityDefenseSystem.CUSTOM_SWORD_DEFENSE
+                    SpecialAbilityDefenseSystem.COOL_STICK_DEFENSE
             );
         });
     }

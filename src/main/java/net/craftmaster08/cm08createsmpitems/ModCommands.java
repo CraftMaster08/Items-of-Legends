@@ -30,7 +30,7 @@ public class ModCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal("createsmpitems")
+                Commands.literal("itemsoflegends")
                         .requires(source -> source.hasPermission(2)) // Requires OP level 2
                         .then(
                                 Commands.literal("list")
