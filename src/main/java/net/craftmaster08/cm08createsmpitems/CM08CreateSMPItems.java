@@ -60,8 +60,8 @@ public class CM08CreateSMPItems {
     private void onBlockBreak(BlockEvent.BreakEvent event) {
         // Check if the broken block is a leaf block
         if (event.getState().is(BlockTags.LEAVES)) {
-            // 1/3000 chance to drop CoolStickItem
-            if (event.getLevel().getRandom().nextFloat() < (1.0F / 3.0F)) {
+            // 1/300 chance to drop CoolStickItem
+            if (event.getLevel().getRandom().nextFloat() < (1.0F / 300.0F)) {
                 event.getLevel().addFreshEntity(
                         new ItemEntity(
                                 (Level) event.getLevel(),
