@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##n",
+    "#n#",
+    "/##"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:nether_wart"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "/": {
+      "item": "cm08createsmpitems:cool_stick"
+    }
+  },
+  "result": {
+    "item": "cm08createsmpitems:divine_liberator",
+    "count": 1
+  }
+}

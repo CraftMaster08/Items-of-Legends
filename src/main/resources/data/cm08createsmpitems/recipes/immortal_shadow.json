@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#E#",
+    "#n#",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:obsidian"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "n": {
+      "item": "minecraft:nether_star"
+    },
+    "/": {
+      "item": "cm08createsmpitems:cool_stick"
+    }
+  },
+  "result": {
+    "item": "cm08createsmpitems:immortal_shadow",
+    "count": 1
+  }
+}
