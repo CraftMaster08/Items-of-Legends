@@ -16,11 +16,11 @@
       "item": "minecraft:nether_star"
     },
     "/": {
-      "item": "cm08createsmpitems:cool_stick"
+      "item": "itemsoflegends:cool_stick"
     }
   },
   "result": {
-    "item": "cm08createsmpitems:immortal_shadow",
+    "item": "itemsoflegends:immortal_shadow",
     "count": 1
   }
 }

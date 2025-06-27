@@ -1,0 +1,22 @@
+{
+  "commands.itemsoflegends.invalid_item": "Ungültiger Gegenstand: %s",
+  "commands.itemsoflegends.list.success": "Implementierte Gegenstände: %s",
+  "commands.itemsoflegends.whitelist.add.failure": "%s konnte nicht zur Whitelist für %s hinzugefügt werden",
+  "commands.itemsoflegends.whitelist.add.success": "%s zur Whitelist für %s hinzugefügt",
+  "commands.itemsoflegends.whitelist.list.empty": "Keine Spieler auf der Whitelist für %s",
+  "commands.itemsoflegends.whitelist.list.success": "Spieler auf der Whitelist für %s: %s",
+  "commands.itemsoflegends.whitelist.remove.success": "%s von der Whitelist für %s entfernt",
+  "commands.itemsoflegends.whitelist.remove.failure": "%s steht nicht auf der Whitelist für %s",
+  "death.attack.divine_liberator_wave": "%1$s wurde von dieser Ebene der Existenz gereinigt durch %2$s",
+  "death.attack.divine_liberator_escape": "%1$s erlag den Nachwirkungen von %2$s's §4§nGöttlicher Befreier",
+  "death.attack.immortal_shadow_strike": "%1$s hat sich durch die Schatten gewunden, um %2$s einen tödlichen Schlag zu versetzen",
+  "itemGroup.itemsoflegends": "Gegenstände von Legenden",
+  "item.itemsoflegends.cool_stick": "Cooler Stock den ich im Wald gefunden habe",
+  "item.itemsoflegends.divine_liberator": "§4§nGöttlicher Befreier",
+  "item.itemsoflegends.divine_liberator.description": "§7Eine große Klinge, die einen Hieb abfeuern kann, der alles durchschneidet, sogar den Raum selbst.",
+  "item.itemsoflegends.immortal_shadow": "Unsterblicher Schatten",
+  "item.itemsoflegends.immortal_shadow.description": "Ich werde dich vor Schaden bewahren, den dir jegliche mächtige Waffe zufügt.",
+  "item.itemsoflegends.immortal_shadow.no_safe_spot": "Unsterblicher Schatten konnte keinen Ort zum Teleportieren finden",
+  "item.itemsoflegends.immortal_shadow.no_target": "Unsterblicher Schatten konnte keine Gegner finden",
+  "item.itemsoflegends.not_whitelisted": "Du bist nicht in der Lage, die Fähigkeit dieses Gegenstandes zu benutzen!"
+}

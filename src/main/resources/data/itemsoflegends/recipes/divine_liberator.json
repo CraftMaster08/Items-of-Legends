@@ -13,11 +13,11 @@
       "item": "minecraft:netherite_ingot"
     },
     "/": {
-      "item": "cm08createsmpitems:cool_stick"
+      "item": "itemsoflegends:cool_stick"
     }
   },
   "result": {
-    "item": "cm08createsmpitems:divine_liberator",
+    "item": "itemsoflegends:divine_liberator",
     "count": 1
   }
 }

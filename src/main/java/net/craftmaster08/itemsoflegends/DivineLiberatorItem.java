@@ -1,6 +1,6 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
-import net.craftmaster08.cm08createsmpitems.util.WhitelistManager;
+import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
@@ -169,7 +169,7 @@ public class DivineLiberatorItem extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         // Use translation key for the description
-        tooltip.add(Component.translatable("item.cm08createsmpitems.divine_liberator.description"));
+        tooltip.add(Component.translatable("item.itemsoflegends.divine_liberator.description"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -270,7 +270,7 @@ public class DivineLiberatorItem extends SwordItem {
         // Check if the player is whitelisted for this item
         if (!WhitelistManager.isPlayerWhitelisted(player, "divine_liberator")) {
             if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.not_whitelisted"));
+                player.sendSystemMessage(Component.translatable("item.itemsoflegends.not_whitelisted"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 0.0F);
             }

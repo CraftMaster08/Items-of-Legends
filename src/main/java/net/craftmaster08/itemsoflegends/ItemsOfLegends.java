@@ -1,4 +1,4 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -17,9 +17,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod(CM08CreateSMPItems.MODID)
-public class CM08CreateSMPItems {
-    public static final String MODID = "cm08createsmpitems";
+@Mod(ItemsOfLegends.MODID)
+public class ItemsOfLegends {
+    public static final String MODID = "itemsoflegends";
 
     // Register items
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
@@ -34,17 +34,17 @@ public class CM08CreateSMPItems {
     // Register creative mode tab
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final RegistryObject<CreativeModeTab> CUSTOM_TAB = TABS.register("cm08createsmpitems_tab",
+    public static final RegistryObject<CreativeModeTab> CUSTOM_TAB = TABS.register("itemsoflegends_tab",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.cm08createsmpitems"))
+                    .title(Component.translatable("itemGroup.itemsoflegends"))
                     .icon(() -> new ItemStack(DIVINE_LIBERATOR.get()))
                     .displayItems((parameters, output) -> {
                         ITEMS.getEntries().forEach(item -> output.accept(item.get()));
                     })
                     .build());
 
-    public CM08CreateSMPItems() {
-        System.out.println("Initializing CM08 Create SMP Items mod");
+    public ItemsOfLegends() {
+        System.out.println("Initializing Items of Legends mod");
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ITEMS.register(modEventBus);
         TABS.register(modEventBus);

@@ -1,6 +1,6 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
-import net.craftmaster08.cm08createsmpitems.util.WhitelistManager;
+import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -100,7 +100,7 @@ public class ImmortalShadowItem extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.cm08createsmpitems.immortal_shadow.description"));
+        tooltip.add(Component.translatable("item.itemsoflegends.immortal_shadow.description"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -113,7 +113,7 @@ public class ImmortalShadowItem extends SwordItem {
 
         if (!WhitelistManager.isPlayerWhitelisted(player, "immortal_shadow")) {
             if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.not_whitelisted"));
+                player.sendSystemMessage(Component.translatable("item.itemsoflegends.not_whitelisted"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 0.0F);
             }
@@ -123,7 +123,7 @@ public class ImmortalShadowItem extends SwordItem {
         LivingEntity target = getTargetEntity(player, level);
         if (target == null) {
             if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.immortal_shadow.no_target"));
+                player.sendSystemMessage(Component.translatable("item.itemsoflegends.immortal_shadow.no_target"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 0.6F, 1.1F);
             }
@@ -413,8 +413,8 @@ public class ImmortalShadowItem extends SwordItem {
 
         private boolean isHoldingImmortalShadow(LivingEntity entity) {
             if (!(entity instanceof Player player)) return false;
-            return player.getMainHandItem().getItem() == CM08CreateSMPItems.IMMORTAL_SHADOW.get() ||
-                    player.getOffhandItem().getItem() == CM08CreateSMPItems.IMMORTAL_SHADOW.get();
+            return player.getMainHandItem().getItem() == ItemsOfLegends.IMMORTAL_SHADOW.get() ||
+                    player.getOffhandItem().getItem() == ItemsOfLegends.IMMORTAL_SHADOW.get();
         }
 
         private void performTeleport() {
@@ -575,7 +575,7 @@ public class ImmortalShadowItem extends SwordItem {
             player.getCooldowns().addCooldown(stack.getItem(), COOLDOWN_TICKS);
 
             // Failure message
-            player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.immortal_shadow.no_safe_spot"));
+            player.sendSystemMessage(Component.translatable("item.itemsoflegends.immortal_shadow.no_safe_spot"));
 
             // Failure sounds
             level.playSound(null, player.getX(), player.getY(), player.getZ(),

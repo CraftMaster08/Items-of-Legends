@@ -1,7 +1,6 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -21,13 +20,13 @@ public class ModDamageTypes {
     // Define the ResourceKey for Divine Liberator Wave DamageType
     public static final ResourceKey<DamageType> DIVINE_LIBERATOR_WAVE_KEY = ResourceKey.create(
             Registries.DAMAGE_TYPE,
-            new ResourceLocation(CM08CreateSMPItems.MODID, "divine_liberator_wave")
+            new ResourceLocation(ItemsOfLegends.MODID, "divine_liberator_wave")
     );
 
     // Define the ResourceKey for Immortal Shadow Strike DamageType
     public static final ResourceKey<DamageType> IMMORTAL_SHADOW_STRIKE_KEY = ResourceKey.create(
             Registries.DAMAGE_TYPE,
-            new ResourceLocation(CM08CreateSMPItems.MODID, "immortal_shadow_strike")
+            new ResourceLocation(ItemsOfLegends.MODID, "immortal_shadow_strike")
     );
 
     public static DamageSource waveAttack(Level level, Entity attacker, ItemStack item) {

@@ -1,10 +1,10 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.craftmaster08.cm08createsmpitems.util.WhitelistManager;
+import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -94,22 +94,22 @@ public class ModCommands {
     private static int listItems(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         String items = String.join(", ", WhitelistManager.getValidItems());
-        source.sendSuccess(() -> Component.translatable("commands.cm08createsmpitems.list.success", items), false);
+        source.sendSuccess(() -> Component.translatable("commands.itemsoflegends.list.success", items), false);
         return 1;
     }
 
     private static int listWhitelist(CommandContext<CommandSourceStack> context, String itemName) {
         CommandSourceStack source = context.getSource();
         if (!WhitelistManager.getValidItems().contains(itemName)) {
-            source.sendFailure(Component.translatable("commands.cm08createsmpitems.invalid_item", itemName));
+            source.sendFailure(Component.translatable("commands.itemsoflegends.invalid_item", itemName));
             return 0;
         }
         List<String> whitelist = WhitelistManager.getWhitelist(itemName);
         if (whitelist.isEmpty()) {
-            source.sendSuccess(() -> Component.translatable("commands.cm08createsmpitems.whitelist.list.empty", itemName), false);
+            source.sendSuccess(() -> Component.translatable("commands.itemsoflegends.whitelist.list.empty", itemName), false);
         } else {
             String players = String.join(", ", whitelist);
-            source.sendSuccess(() -> Component.translatable("commands.cm08createsmpitems.whitelist.list.success", itemName, players), false);
+            source.sendSuccess(() -> Component.translatable("commands.itemsoflegends.whitelist.list.success", itemName, players), false);
         }
         return 1;
     }
@@ -117,14 +117,14 @@ public class ModCommands {
     private static int addToWhitelist(CommandContext<CommandSourceStack> context, String itemName, String playerName) {
         CommandSourceStack source = context.getSource();
         if (!WhitelistManager.getValidItems().contains(itemName)) {
-            source.sendFailure(Component.translatable("commands.cm08createsmpitems.invalid_item", itemName));
+            source.sendFailure(Component.translatable("commands.itemsoflegends.invalid_item", itemName));
             return 0;
         }
         if (WhitelistManager.addPlayerToWhitelist(itemName, playerName)) {
-            source.sendSuccess(() -> Component.translatable("commands.cm08createsmpitems.whitelist.add.success", playerName, itemName), false);
+            source.sendSuccess(() -> Component.translatable("commands.itemsoflegends.whitelist.add.success", playerName, itemName), false);
             return 1;
         } else {
-            source.sendFailure(Component.translatable("commands.cm08createsmpitems.whitelist.add.failure", playerName, itemName));
+            source.sendFailure(Component.translatable("commands.itemsoflegends.whitelist.add.failure", playerName, itemName));
             return 0;
         }
     }
@@ -132,14 +132,14 @@ public class ModCommands {
     private static int removeFromWhitelist(CommandContext<CommandSourceStack> context, String itemName, String playerName) {
         CommandSourceStack source = context.getSource();
         if (!WhitelistManager.getValidItems().contains(itemName)) {
-            source.sendFailure(Component.translatable("commands.cm08createsmpitems.invalid_item", itemName));
+            source.sendFailure(Component.translatable("commands.itemsoflegends.invalid_item", itemName));
             return 0;
         }
         if (WhitelistManager.removePlayerFromWhitelist(itemName, playerName)) {
-            source.sendSuccess(() -> Component.translatable("commands.cm08createsmpitems.whitelist.remove.success", playerName, itemName), false);
+            source.sendSuccess(() -> Component.translatable("commands.itemsoflegends.whitelist.remove.success", playerName, itemName), false);
             return 1;
         } else {
-            source.sendFailure(Component.translatable("commands.cm08createsmpitems.whitelist.remove.failure", playerName, itemName));
+            source.sendFailure(Component.translatable("commands.itemsoflegends.whitelist.remove.failure", playerName, itemName));
             return 0;
         }
     }

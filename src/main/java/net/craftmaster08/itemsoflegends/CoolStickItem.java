@@ -1,6 +1,6 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
-import net.craftmaster08.cm08createsmpitems.util.WhitelistManager;
+import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public class CoolStickItem extends SwordItem {
         // Check if the player is whitelisted for this item
         if (!WhitelistManager.isPlayerWhitelisted(player, "custom_sword")) {
             if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.not_whitelisted"));
+                player.sendSystemMessage(Component.translatable("item.itemsoflegends.not_whitelisted"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 0.0F);
             }

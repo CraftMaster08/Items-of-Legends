@@ -1,4 +1,4 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,7 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -27,7 +26,7 @@ import java.util.Map;
 public class SpecialAbilityDefenseSystem {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<Item, DefenseEntry> DEFENSE_REGISTRY = new HashMap<>();
-    private static final Item IMMORTAL_SHADOW = CM08CreateSMPItems.IMMORTAL_SHADOW.get();
+    private static final Item IMMORTAL_SHADOW = ItemsOfLegends.IMMORTAL_SHADOW.get();
 
     // Functional interface for defense handlers
     @FunctionalInterface
