@@ -1,35 +1,24 @@
 package net.craftmaster08.itemsoflegends;
 
+import net.craftmaster08.itemsoflegends.damage.SpecialAbilityDefenseSystem;
+import net.craftmaster08.itemsoflegends.item.ModItems;
+import net.craftmaster08.itemsoflegends.loot.ModLootModifiers;
+import net.craftmaster08.itemsoflegends.util.ModCommands;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod(ItemsOfLegends.MODID)
 public class ItemsOfLegends {
     public static final String MODID = "itemsoflegends";
-
-    // Register items
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-
-    public static final RegistryObject<Item> COOL_STICK = ITEMS.register("cool_stick",
-            () -> new CoolStickItem(new Item.Properties()));
-    public static final RegistryObject<Item> DIVINE_LIBERATOR = ITEMS.register("divine_liberator",
-            () -> new DivineLiberatorItem(new Item.Properties()));
-    public static final RegistryObject<Item> IMMORTAL_SHADOW = ITEMS.register("immortal_shadow",
-            () -> new ImmortalShadowItem(new Item.Properties().durability(1500)));
 
     // Register creative mode tab
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -37,42 +26,30 @@ public class ItemsOfLegends {
     public static final RegistryObject<CreativeModeTab> CUSTOM_TAB = TABS.register("itemsoflegends_tab",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.itemsoflegends"))
-                    .icon(() -> new ItemStack(DIVINE_LIBERATOR.get()))
+                    .icon(() -> new ItemStack(ModItems.DIVINE_LIBERATOR.get()))
                     .displayItems((parameters, output) -> {
-                        ITEMS.getEntries().forEach(item -> output.accept(item.get()));
+                        ModItems.ITEMS.getEntries().forEach(item -> output.accept(item.get()));
                     })
                     .build());
 
     public ItemsOfLegends() {
         System.out.println("Initializing Items of Legends mod");
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ITEMS.register(modEventBus);
+
+        ModItems.register(modEventBus);
+
         TABS.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
-        MinecraftForge.EVENT_BUS.addListener(this::onBlockBreak); // Register block break event
+
+        ModLootModifiers.register(modEventBus);
+
         modEventBus.addListener(this::onCommonSetup);
     }
 
     private void onRegisterCommands(RegisterCommandsEvent event) {
         ModCommands.register(event.getDispatcher());
-    }
-
-    private void onBlockBreak(BlockEvent.BreakEvent event) {
-        // Check if the broken block is a leaf block
-        if (event.getState().is(BlockTags.LEAVES)) {
-            // 1/1000 chance to drop CoolStickItem
-            if (event.getLevel().getRandom().nextFloat() < (1.0F / 1000.0F)) {
-                event.getLevel().addFreshEntity(
-                        new ItemEntity(
-                                (Level) event.getLevel(),
-                                event.getPos().getX() + 0.5,
-                                event.getPos().getY() + 0.5,
-                                event.getPos().getZ() + 0.5,
-                                new ItemStack(COOL_STICK.get())
-                        )
-                );
-            }
-        }
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
@@ -82,19 +59,19 @@ public class ItemsOfLegends {
 
             // Register special abilities
             SpecialAbilityDefenseSystem.registerSpecialAbility(
-                    DIVINE_LIBERATOR.get(),
+                    ModItems.DIVINE_LIBERATOR.get(),
                     "divine_liberator_wave",
                     SpecialAbilityDefenseSystem.DIVINE_LIBERATOR_DEFENSE
             );
             SpecialAbilityDefenseSystem.registerSpecialAbility(
-                    IMMORTAL_SHADOW.get(),
+                    ModItems.IMMORTAL_SHADOW.get(),
                     "immortal_shadow_strike",
                     (target, hurtEvent, level) -> {
                         // Handled in ImmortalShadowItem's TeleportHandler
                     }
             );
             SpecialAbilityDefenseSystem.registerSpecialAbility(
-                    COOL_STICK.get(),
+                    ModItems.COOL_STICK.get(),
                     null, // Uses playerAttack, not a custom damage source
                     SpecialAbilityDefenseSystem.COOL_STICK_DEFENSE
             );

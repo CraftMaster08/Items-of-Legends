@@ -1,5 +1,7 @@
-package net.craftmaster08.itemsoflegends;
+package net.craftmaster08.itemsoflegends.item.custom;
 
+import net.craftmaster08.itemsoflegends.damage.ModDamageTypes;
+import net.craftmaster08.itemsoflegends.item.ModItems;
 import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
@@ -413,8 +415,8 @@ public class ImmortalShadowItem extends SwordItem {
 
         private boolean isHoldingImmortalShadow(LivingEntity entity) {
             if (!(entity instanceof Player player)) return false;
-            return player.getMainHandItem().getItem() == ItemsOfLegends.IMMORTAL_SHADOW.get() ||
-                    player.getOffhandItem().getItem() == ItemsOfLegends.IMMORTAL_SHADOW.get();
+            return player.getMainHandItem().getItem() == ModItems.IMMORTAL_SHADOW.get() ||
+                    player.getOffhandItem().getItem() == ModItems.IMMORTAL_SHADOW.get();
         }
 
         private void performTeleport() {

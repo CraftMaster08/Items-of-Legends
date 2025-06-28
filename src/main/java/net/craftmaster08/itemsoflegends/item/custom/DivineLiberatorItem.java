@@ -1,5 +1,6 @@
-package net.craftmaster08.itemsoflegends;
+package net.craftmaster08.itemsoflegends.item.custom;
 
+import net.craftmaster08.itemsoflegends.damage.ModDamageTypes;
 import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.DustColorTransitionOptions;

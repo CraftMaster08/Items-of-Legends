@@ -1,5 +1,6 @@
-package net.craftmaster08.itemsoflegends;
+package net.craftmaster08.itemsoflegends.damage;
 
+import net.craftmaster08.itemsoflegends.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -26,7 +27,7 @@ import java.util.Map;
 public class SpecialAbilityDefenseSystem {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<Item, DefenseEntry> DEFENSE_REGISTRY = new HashMap<>();
-    private static final Item IMMORTAL_SHADOW = ItemsOfLegends.IMMORTAL_SHADOW.get();
+    private static final Item IMMORTAL_SHADOW = ModItems.IMMORTAL_SHADOW.get();
 
     // Functional interface for defense handlers
     @FunctionalInterface

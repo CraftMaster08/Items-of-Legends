@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "combat",
   "pattern": [
     "##n",
     "#n#",
@@ -19,5 +20,6 @@
   "result": {
     "item": "itemsoflegends:divine_liberator",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

@@ -1,10 +1,9 @@
-package net.craftmaster08.itemsoflegends;
+package net.craftmaster08.itemsoflegends.util;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;

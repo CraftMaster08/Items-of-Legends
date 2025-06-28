@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "combat",
   "pattern": [
     "#E#",
     "#n#",
@@ -22,5 +23,6 @@
   "result": {
     "item": "itemsoflegends:immortal_shadow",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

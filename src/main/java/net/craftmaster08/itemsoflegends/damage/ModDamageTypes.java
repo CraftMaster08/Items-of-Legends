@@ -1,5 +1,6 @@
-package net.craftmaster08.itemsoflegends;
+package net.craftmaster08.itemsoflegends.damage;
 
+import net.craftmaster08.itemsoflegends.ItemsOfLegends;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
