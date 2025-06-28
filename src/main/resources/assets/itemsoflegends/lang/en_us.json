@@ -12,10 +12,10 @@
   "death.attack.immortal_shadow_strike": "%1$s was dealt a fatal strike by %2$s warping through shadows with %3$s",
   "itemGroup.itemsoflegends": "Items of Legends",
   "item.itemsoflegends.cool_stick": "Cool Stick I found in the woods",
-  "item.itemsoflegends.divine_liberator": "\u00A74\u00A7nDivine Liberator",
-  "item.itemsoflegends.divine_liberator.description": "\u00A77A large blade capable of firing a slash that can cut through anything, even space itself.",
+  "item.itemsoflegends.divine_liberator": "§4§nDivine Liberator",
+  "item.itemsoflegends.divine_liberator.description": "§7A large blade capable of firing\na slash that can cut through anything,\neven space itself.",
   "item.itemsoflegends.immortal_shadow": "Immortal Shadow",
-  "item.itemsoflegends.immortal_shadow.description": "I will protect you from harm inflicted by any mighty weapon",
+  "item.itemsoflegends.immortal_shadow.description": "§7I will protect you from harm\ninflicted by any mighty weapon",
   "item.itemsoflegends.immortal_shadow.no_safe_spot": "Immortal Shadow could not find a spot to teleport to",
   "item.itemsoflegends.immortal_shadow.no_target": "Immortal Shadow could not locate any enemies",
   "item.itemsoflegends.not_whitelisted": "You are not able to use this item's ability!"
