@@ -92,7 +92,6 @@ public class DivineLiberatorItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.level().isClientSide) {
-
             ServerLevel level = (ServerLevel) attacker.level();
 
             // Play hit sound (ANVIL_PLACE, pitch 2.0)
@@ -315,6 +314,29 @@ public class DivineLiberatorItem extends SwordItem {
             MinecraftForge.EVENT_BUS.register(this);
         }
 
+        private void spawnWaveParticles(Vec3 particlePosition) {
+            // Calculate the perpendicular vector for the wave width (left and right)
+            Vec3 perpendicular = new Vec3(-direction.z, 0, direction.x).normalize();
+            Vec3 leftEdge = particlePosition.add(perpendicular.scale(-waveWidth));
+            Vec3 rightEdge = particlePosition.add(perpendicular.scale(waveWidth));
+
+            // Spawn custom colored dust particles along the wave with increased density
+            for (double i = -waveWidth; i <= waveWidth; i += 0.3) { // Reduced step size for more density
+                Vec3 particlePos = particlePosition.add(perpendicular.scale(i));
+                level.sendParticles(BLACK_TO_RED, particlePos.x, particlePos.y, particlePos.z,
+                        8, 0.1, 0.1, 0.1, 0.0); // Increased count
+                level.sendParticles(RED_TO_DARK_GRAY, particlePos.x, particlePos.y, particlePos.z,
+                        5, 0.1, 0.1, 0.1, 0.0); // Increased count
+                level.sendParticles(DARK_GRAY_TO_MAROON, particlePos.x, particlePos.y, particlePos.z,
+                        3, 0.1, 0.1, 0.1, 0.0); // Increased count
+                // Add fiery edges with FLAME particles
+                if (Math.abs(i - waveWidth) < 0.5 || Math.abs(i + waveWidth) < 0.5) {
+                    level.sendParticles(ParticleTypes.FLAME, particlePos.x, particlePos.y, particlePos.z,
+                            2, 0.1, 0.1, 0.1, 0.0);
+                }
+            }
+        }
+
         @SubscribeEvent
         public void onServerTick(TickEvent.ServerTickEvent event) {
             if (event.phase != TickEvent.Phase.END) return;
@@ -324,14 +346,14 @@ public class DivineLiberatorItem extends SwordItem {
                 return;
             }
 
-            // Store previous position for trail
-            Vec3 previousPosition = position;
+            // Store current position for trail and particle calculations
+            Vec3 currentPosition = position;
 
             // Move the wave forward
             position = position.add(direction.scale(waveSpeed));
             distanceTraveled += (int) waveSpeed;
 
-            // Check for block collision, ignoring grass, tall grass, water and snow layers
+            // Check for block collision, ignoring grass, tall grass, water, and snow layers
             BlockState blockState = level.getBlockState(BlockPos.containing(position));
             if (!blockState.isAir() && !blockState.is(Blocks.GRASS) && !blockState.is(Blocks.TALL_GRASS) && !blockState.is(Blocks.WATER) && !blockState.is(Blocks.SNOW)) {
                 MinecraftForge.EVENT_BUS.unregister(this);
@@ -346,29 +368,17 @@ public class DivineLiberatorItem extends SwordItem {
                 soundTimer = 0;
             }
 
-            // Calculate the perpendicular vector for the wave width (left and right)
-            Vec3 perpendicular = new Vec3(-direction.z, 0, direction.x).normalize();
-            Vec3 leftEdge = position.add(perpendicular.scale(-waveWidth));
-            Vec3 rightEdge = position.add(perpendicular.scale(waveWidth));
+            // Spawn particles at the current position
+            spawnWaveParticles(currentPosition);
 
-            // Spawn custom colored dust particles along the wave with increased density
-            for (double i = -waveWidth; i <= waveWidth; i += 0.2) { // Reduced step size for more density
-                Vec3 particlePos = position.add(perpendicular.scale(i));
-                level.sendParticles(BLACK_TO_RED, particlePos.x, particlePos.y, particlePos.z,
-                        8, 0.1, 0.1, 0.1, 0.0); // Increased count
-                level.sendParticles(RED_TO_DARK_GRAY, particlePos.x, particlePos.y, particlePos.z,
-                        5, 0.1, 0.1, 0.1, 0.0); // Increased count
-                level.sendParticles(DARK_GRAY_TO_MAROON, particlePos.x, particlePos.y, particlePos.z,
-                        3, 0.1, 0.1, 0.1, 0.0); // Increased count
-                // Add fiery edges with FLAME particles
-                if (Math.abs(i - waveWidth) < 0.5 || Math.abs(i + waveWidth) < 0.5) {
-                    level.sendParticles(ParticleTypes.FLAME, particlePos.x, particlePos.y, particlePos.z,
-                            2, 0.1, 0.1, 0.1, 0.0);
-                }
-            }
+            // Calculate the next position (for particle purposes only, not updating position)
+            Vec3 nextPosition = position.add(direction.scale(waveSpeed));
+            // Spawn particles at the midpoint between current and next position
+            Vec3 intermediatePosition = currentPosition.add(nextPosition.subtract(currentPosition).scale(0.5));
+            spawnWaveParticles(intermediatePosition);
 
             // Add a faint trail behind the wave
-            Vec3 trailPos = previousPosition.add(direction.scale(-waveSpeed * 0.5)); // Slightly behind the wave
+            Vec3 trailPos = currentPosition.add(direction.scale(-waveSpeed * 0.5)); // Slightly behind the wave
             for (int i = 0; i < 5; i++) {
                 double xOffset = (level.random.nextDouble() - 0.5) * waveWidth;
                 double zOffset = (level.random.nextDouble() - 0.5) * waveWidth;
@@ -376,6 +386,11 @@ public class DivineLiberatorItem extends SwordItem {
                         trailPos.x + xOffset, trailPos.y, trailPos.z + zOffset,
                         1, 0.1, 0.1, 0.1, 0.0);
             }
+
+            // Calculate the perpendicular vector for the wave width (left and right) for entity detection
+            Vec3 perpendicular = new Vec3(-direction.z, 0, direction.x).normalize();
+            Vec3 leftEdge = position.add(perpendicular.scale(-waveWidth));
+            Vec3 rightEdge = position.add(perpendicular.scale(waveWidth));
 
             // Check for entities in the wave's path (reduced vertical expansion)
             AABB aabb = new AABB(leftEdge, rightEdge).inflate(1.0, 1.0, 1.0); // Reduced vertical inflation to 1.0
