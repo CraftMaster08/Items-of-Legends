@@ -21,7 +21,8 @@
     }
   },
   "result": {
-    "id": "itemsoflegends:divine_liberator",
+    "item": "itemsoflegends:divine_liberator",
     "count": 1
-  }
+  },
+  "show_notification": true
 }
