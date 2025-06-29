@@ -444,6 +444,9 @@ public class DivineLiberatorItem extends SwordItem {
                 if (!hitEntities.contains(entity) && entity instanceof LivingEntity livingEntity) {
                     hitEntities.add(entity);
                     try {
+                        // Set the entity on fire for 5 seconds (100 ticks)
+                        livingEntity.setSecondsOnFire(5);
+
                         // Apply damage using the custom DamageSource with ItemStack
                         livingEntity.hurt(ModDamageTypes.waveAttack(level, player, stack), 48.0F); // 24 hearts
                         LOGGER.debug("Applied wave damage to {} with item {}", livingEntity.getName().getString(), stack.getDisplayName().getString());
@@ -457,8 +460,6 @@ public class DivineLiberatorItem extends SwordItem {
                         targetPlayer.getPersistentData().putString("DivineLiberatorAttacker", player.getGameProfile().getName()); // Store attacker's name
                         LOGGER.debug("Marked player as cleansed: {} by attacker: {}", targetPlayer.getName().getString(), player.getGameProfile().getName());
                     }
-                    // Set the entity on fire for 5 seconds (100 ticks)
-                    livingEntity.setSecondsOnFire(5);
                     // Play impact sounds
                     level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
                             SoundEvents.WITHER_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
