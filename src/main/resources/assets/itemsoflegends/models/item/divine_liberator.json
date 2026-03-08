@@ -1,9 +1,9 @@
 {
 	"textures": {
-		"2": "cm08createsmpitems:item/divine_liberator/divine_liberator_gem_cover",
-		"3": "cm08createsmpitems:item/divine_liberator/divine_liberator_v3",
-		"4": "cm08createsmpitems:item/divine_liberator/divine_liberator",
-		"particle": "cm08createsmpitems:item/divine_liberator/divine_liberator"
+		"2": "itemsoflegends:item/divine_liberator/divine_liberator_gem_cover",
+		"3": "itemsoflegends:item/divine_liberator/divine_liberator_v3",
+		"4": "itemsoflegends:item/divine_liberator/divine_liberator",
+		"particle": "itemsoflegends:item/divine_liberator/divine_liberator"
 	},
 	"elements": [
 		{

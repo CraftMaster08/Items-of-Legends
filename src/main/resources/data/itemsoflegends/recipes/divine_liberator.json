@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "pattern": [
+    " #n",
+    "#N#",
+    "I# "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "I": {
+      "item": "itemsoflegends:cool_stick"
+    }
+  },
+  "result": {
+    "item": "itemsoflegends:divine_liberator",
+    "count": 1
+  },
+  "show_notification": true
+}

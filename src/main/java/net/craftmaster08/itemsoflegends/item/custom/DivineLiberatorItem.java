@@ -1,6 +1,7 @@
-package net.craftmaster08.cm08createsmpitems;
+package net.craftmaster08.itemsoflegends.item.custom;
 
-import net.craftmaster08.cm08createsmpitems.util.WhitelistManager;
+import net.craftmaster08.itemsoflegends.damage.ModDamageTypes;
+import net.craftmaster08.itemsoflegends.util.WhitelistManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
@@ -91,77 +92,28 @@ public class DivineLiberatorItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.level().isClientSide) {
+            ServerLevel level = (ServerLevel) attacker.level();
+
             // Play hit sound (ANVIL_PLACE, pitch 2.0)
             attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
                     SoundEvents.ANVIL_PLACE, SoundSource.PLAYERS, 1.0F, 2.0F);
 
-            // Add crescent-shaped slash effect centered on the hit entity
-            ServerLevel level = (ServerLevel) attacker.level();
-            // Center on the hit entity (at their middle height)
-            Vec3 targetPos = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2.0, target.getZ());
-            Vec3 attackerPos = new Vec3(attacker.getX(), attacker.getY() + attacker.getBbHeight() / 2.0, attacker.getZ());
-
-            // Calculate direction from target to attacker (so the crescent faces the attacker)
-            Vec3 directionToAttacker = attackerPos.subtract(targetPos).normalize();
-
-            // Convert direction to yaw (horizontal angle)
-            double baseYaw = Math.atan2(directionToAttacker.z, directionToAttacker.x);
-            // Random rotation around the vertical axis (0 to 360 degrees)
-            double rotationOffset = level.random.nextDouble() * 2.0 * Math.PI;
-            double yaw = baseYaw + rotationOffset;
-
-            // Randomize arc radius (2 to 4 blocks)
-            double radius = 1.0 + level.random.nextDouble() * 1.0; // Radius 1 to 2 blocks (arc length ~2 to 4 blocks)
-
-            // Define the crescent arc (sweeping over 180 degrees for a semi-circle shape)
-            double arcAngleStart = -Math.PI / 2.0; // Start at -90 degrees
-            double arcAngleEnd = Math.PI / 2.0; // End at 90 degrees
-            double angleStep = 0.1; // Smaller step for dense particles
-
-            // Calculate the forward direction (based on yaw)
-            double cosYaw = Math.cos(yaw);
-            double sinYaw = Math.sin(yaw);
-            Vec3 forward = new Vec3(cosYaw, 0, sinYaw).normalize();
-
-            // Calculate the right vector (perpendicular to forward, in the horizontal plane)
-            Vec3 right = new Vec3(-sinYaw, 0, cosYaw).normalize();
-
-            // Spawn black core particles (dense central streak)
-            for (double angle = arcAngleStart; angle <= arcAngleEnd; angle += angleStep) {
-                double xOffset = radius * Math.cos(angle);
-                double zOffset = radius * Math.sin(angle);
-                double x = targetPos.x + xOffset * cosYaw + zOffset * sinYaw;
-                double y = targetPos.y;
-                double z = targetPos.z + xOffset * sinYaw - zOffset * cosYaw;
-
-                level.sendParticles(BLACK_TO_BLACK, x, y, z,
-                        5, 0.02, 0.02, 0.02, 0.0); // Dense black core
+            // Add particles
+            Vec3 pos = target.getPosition(1.0F).add(0, target.getBbHeight() / 2.0, 0);
+            for (int i = 0; i < 20; i++) {
+                double theta = level.random.nextDouble() * 2 * Math.PI;
+                double radius = 0.8 + level.random.nextDouble() * 0.4;
+                double offsetX = Math.cos(theta) * radius;
+                double offsetZ = Math.sin(theta) * radius;
+                level.sendParticles(ParticleTypes.FLAME,
+                        pos.x + offsetX, pos.y + (level.random.nextDouble() - 0.5) * 0.5, pos.z + offsetZ,
+                        1, 0.1, 0.1, 0.1, 0.05);
+                level.sendParticles(ParticleTypes.ASH,
+                        pos.x + offsetX, pos.y + (level.random.nextDouble() - 0.5) * 0.5, pos.z + offsetZ,
+                        1, 0.1, 0.1, 0.1, 0.05);
             }
-
-            // Spawn white sparkle fringe with higher concentration in the middle
-            for (double angle = arcAngleStart; angle <= arcAngleEnd; angle += angleStep) {
-                double xOffset = radius * Math.cos(angle);
-                double zOffset = radius * Math.sin(angle);
-                double baseX = targetPos.x + xOffset * cosYaw + zOffset * sinYaw;
-                double baseY = targetPos.y;
-                double baseZ = targetPos.z + xOffset * sinYaw - zOffset * cosYaw;
-
-                // Calculate concentration (higher in the middle, tapering off at ends)
-                double concentrationFactor = 1.0 - Math.abs(angle) / (Math.PI / 2.0); // 1 at middle (angle=0), 0 at ends
-                int sparkleCount = (int) (3 * concentrationFactor) + 1; // 1 to 4 sparkles based on concentration
-
-                // Spawn sparkles with random offsets
-                for (int i = 0; i < sparkleCount; i++) {
-                    // Random offset for sparkle effect (up to 0.3 blocks in any direction)
-                    double sparkleOffsetX = (level.random.nextDouble() - 0.5) * 0.3;
-                    double sparkleOffsetY = (level.random.nextDouble() - 0.5) * 0.3;
-                    double sparkleOffsetZ = (level.random.nextDouble() - 0.5) * 0.3;
-
-                    level.sendParticles(WHITE_TO_WHITE,
-                            baseX + sparkleOffsetX, baseY + sparkleOffsetY, baseZ + sparkleOffsetZ,
-                            1, 0.02, 0.02, 0.02, 0.0); // White sparkles
-                }
-            }
+            level.sendParticles(ParticleTypes.DRIPPING_LAVA,
+                    pos.x, pos.y, pos.z, 10, 0.3, 0.3, 0.3, 0.0);
         }
         return super.hurtEnemy(stack, target, attacker);
     }
@@ -169,7 +121,7 @@ public class DivineLiberatorItem extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         // Use translation key for the description
-        tooltip.add(Component.translatable("item.cm08createsmpitems.divine_liberator.description"));
+        tooltip.add(Component.translatable("item.itemsoflegends.divine_liberator.description"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -270,7 +222,7 @@ public class DivineLiberatorItem extends SwordItem {
         // Check if the player is whitelisted for this item
         if (!WhitelistManager.isPlayerWhitelisted(player, "divine_liberator")) {
             if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("item.cm08createsmpitems.not_whitelisted"));
+                player.sendSystemMessage(Component.translatable("item.itemsoflegends.not_whitelisted"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 0.0F);
             }
@@ -333,7 +285,7 @@ public class DivineLiberatorItem extends SwordItem {
                     50, 1.0, 1.0, 1.0, 0.0);
 
             // Schedule the wave movement
-            new WaveHandler(player, level);
+            new WaveHandler(player, level, stack);
         }
     }
 
@@ -341,6 +293,7 @@ public class DivineLiberatorItem extends SwordItem {
     private static class WaveHandler {
         private final Player player;
         private final ServerLevel level;
+        private final ItemStack stack; // Store the ItemStack
         private final Vec3 direction;
         private Vec3 position;
         private int distanceTraveled;
@@ -350,9 +303,10 @@ public class DivineLiberatorItem extends SwordItem {
         private final int maxDistance = 100; // Max 100 blocks
         private int soundTimer = 0; // Timer for wave sound
 
-        public WaveHandler(Player player, Level level) {
+        public WaveHandler(Player player, Level level, ItemStack stack) {
             this.player = player;
             this.level = (ServerLevel) level;
+            this.stack = stack.copy(); // Copy to prevent modifications
             this.direction = player.getLookAngle().normalize();
             this.position = player.position().add(0, 1.5, 0); // Start at player's eye level
             this.distanceTraveled = 0;
@@ -360,45 +314,15 @@ public class DivineLiberatorItem extends SwordItem {
             MinecraftForge.EVENT_BUS.register(this);
         }
 
-        @SubscribeEvent
-        public void onServerTick(TickEvent.ServerTickEvent event) {
-            if (event.phase != TickEvent.Phase.END) return;
-
-            if (distanceTraveled >= maxDistance) {
-                MinecraftForge.EVENT_BUS.unregister(this);
-                return;
-            }
-
-            // Store previous position for trail
-            Vec3 previousPosition = position;
-
-            // Move the wave forward
-            position = position.add(direction.scale(waveSpeed));
-            distanceTraveled += (int) waveSpeed;
-
-            // Check for block collision, ignoring grass, tall grass, and water
-            BlockState blockState = level.getBlockState(BlockPos.containing(position));
-            if (!blockState.isAir() && !blockState.is(Blocks.GRASS) && !blockState.is(Blocks.TALL_GRASS) && !blockState.is(Blocks.WATER)) {
-                MinecraftForge.EVENT_BUS.unregister(this);
-                return;
-            }
-
-            // Play wave travel sounds every 10 ticks
-            soundTimer++;
-            if (soundTimer >= 10) {
-                level.playSound(null, position.x, position.y, position.z,
-                        SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 1.5F);
-                soundTimer = 0;
-            }
-
+        private void spawnWaveParticles(Vec3 particlePosition) {
             // Calculate the perpendicular vector for the wave width (left and right)
             Vec3 perpendicular = new Vec3(-direction.z, 0, direction.x).normalize();
-            Vec3 leftEdge = position.add(perpendicular.scale(-waveWidth));
-            Vec3 rightEdge = position.add(perpendicular.scale(waveWidth));
+            Vec3 leftEdge = particlePosition.add(perpendicular.scale(-waveWidth));
+            Vec3 rightEdge = particlePosition.add(perpendicular.scale(waveWidth));
 
             // Spawn custom colored dust particles along the wave with increased density
             for (double i = -waveWidth; i <= waveWidth; i += 0.3) { // Reduced step size for more density
-                Vec3 particlePos = position.add(perpendicular.scale(i));
+                Vec3 particlePos = particlePosition.add(perpendicular.scale(i));
                 level.sendParticles(BLACK_TO_RED, particlePos.x, particlePos.y, particlePos.z,
                         8, 0.1, 0.1, 0.1, 0.0); // Increased count
                 level.sendParticles(RED_TO_DARK_GRAY, particlePos.x, particlePos.y, particlePos.z,
@@ -411,9 +335,50 @@ public class DivineLiberatorItem extends SwordItem {
                             2, 0.1, 0.1, 0.1, 0.0);
                 }
             }
+        }
+
+        @SubscribeEvent
+        public void onServerTick(TickEvent.ServerTickEvent event) {
+            if (event.phase != TickEvent.Phase.END) return;
+
+            if (distanceTraveled >= maxDistance) {
+                MinecraftForge.EVENT_BUS.unregister(this);
+                return;
+            }
+
+            // Store current position for trail and particle calculations
+            Vec3 currentPosition = position;
+
+            // Move the wave forward
+            position = position.add(direction.scale(waveSpeed));
+            distanceTraveled += (int) waveSpeed;
+
+            // Check for block collision, ignoring grass, tall grass, water, and snow layers
+            BlockState blockState = level.getBlockState(BlockPos.containing(position));
+            if (!blockState.isAir() && !blockState.is(Blocks.GRASS) && !blockState.is(Blocks.TALL_GRASS) && !blockState.is(Blocks.WATER) && !blockState.is(Blocks.SNOW)) {
+                MinecraftForge.EVENT_BUS.unregister(this);
+                return;
+            }
+
+            // Play wave travel sounds every 10 ticks
+            soundTimer++;
+            if (soundTimer >= 10) {
+                level.playSound(null, position.x, position.y, position.z,
+                        SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 1.5F);
+                soundTimer = 0;
+            }
+
+            // Spawn particles at the current position
+            spawnWaveParticles(currentPosition);
+
+            // Calculate the next position (for particle purposes only, not updating position)
+            Vec3 nextPosition = position.add(direction.scale(waveSpeed));
+            // Spawn particles at the midpoint between current and next position
+            Vec3 intermediatePosition = currentPosition.add(nextPosition.subtract(currentPosition).scale(0.5));
+            spawnWaveParticles(intermediatePosition);
 
             // Add a faint trail behind the wave
-            Vec3 trailPos = previousPosition.add(direction.scale(-waveSpeed * 0.5)); // Slightly behind the wave
+            Vec3 trailPos = currentPosition.add(direction.scale(-waveSpeed * 0.5)); // Slightly behind the wave
             for (int i = 0; i < 5; i++) {
                 double xOffset = (level.random.nextDouble() - 0.5) * waveWidth;
                 double zOffset = (level.random.nextDouble() - 0.5) * waveWidth;
@@ -421,6 +386,11 @@ public class DivineLiberatorItem extends SwordItem {
                         trailPos.x + xOffset, trailPos.y, trailPos.z + zOffset,
                         1, 0.1, 0.1, 0.1, 0.0);
             }
+
+            // Calculate the perpendicular vector for the wave width (left and right) for entity detection
+            Vec3 perpendicular = new Vec3(-direction.z, 0, direction.x).normalize();
+            Vec3 leftEdge = position.add(perpendicular.scale(-waveWidth));
+            Vec3 rightEdge = position.add(perpendicular.scale(waveWidth));
 
             // Check for entities in the wave's path (reduced vertical expansion)
             AABB aabb = new AABB(leftEdge, rightEdge).inflate(1.0, 1.0, 1.0); // Reduced vertical inflation to 1.0
@@ -474,20 +444,22 @@ public class DivineLiberatorItem extends SwordItem {
                 if (!hitEntities.contains(entity) && entity instanceof LivingEntity livingEntity) {
                     hitEntities.add(entity);
                     try {
-                        // Apply damage using the custom DamageSource from ModDamageTypes
-                        livingEntity.hurt(ModDamageTypes.waveAttack(level, player), 48.0F); // 24 hearts
-                        LOGGER.debug("Applied wave damage to " + livingEntity.getName().getString());
+                        // Set the entity on fire for 5 seconds (100 ticks)
+                        livingEntity.setSecondsOnFire(5);
+
+                        // Apply damage using the custom DamageSource with ItemStack
+                        livingEntity.hurt(ModDamageTypes.waveAttack(level, player, stack), 48.0F); // 24 hearts
+                        LOGGER.debug("Applied wave damage to {} with item {}", livingEntity.getName().getString(), stack.getDisplayName().getString());
                     } catch (IllegalStateException e) {
-                        LOGGER.error("Failed to apply wave damage: " + e.getMessage());
+                        LOGGER.error("Failed to apply wave damage: {}", e.getMessage());
                         continue; // Skip this entity to prevent crash
                     }
-                    // Mark players as "cleansed" for follow-up death message
+                    // Mark players as "cleansed" for follow-up death message and store attacker's name
                     if (livingEntity instanceof Player targetPlayer) {
                         targetPlayer.getPersistentData().putLong("DivineLiberatorCleansed", level.getGameTime());
-                        LOGGER.debug("Marked player as cleansed: " + targetPlayer.getName().getString());
+                        targetPlayer.getPersistentData().putString("DivineLiberatorAttacker", player.getGameProfile().getName()); // Store attacker's name
+                        LOGGER.debug("Marked player as cleansed: {} by attacker: {}", targetPlayer.getName().getString(), player.getGameProfile().getName());
                     }
-                    // Set the entity on fire for 5 seconds (100 ticks)
-                    livingEntity.setSecondsOnFire(5);
                     // Play impact sounds
                     level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
                             SoundEvents.WITHER_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
@@ -526,11 +498,15 @@ public class DivineLiberatorItem extends SwordItem {
                 long cleansedTime = player.getPersistentData().getLong("DivineLiberatorCleansed");
                 long currentTime = player.level().getGameTime();
                 if (currentTime - cleansedTime < CLEANSED_DURATION) {
+                    // Get the attacker's name from PersistentData
+                    String attackerName = player.getPersistentData().getString("DivineLiberatorAttacker");
+                    Component attackerComponent = Component.literal(attackerName.isEmpty() ? "Unknown" : attackerName);
+
                     // Check if the damage source is the wave attack
                     DamageSource source = event.getSource();
                     if (source.getMsgId().equals("divine_liberator_wave")) {
                         // Let the translation key handle the death message
-                        LOGGER.debug("Player killed by wave: " + player.getName().getString());
+                        LOGGER.debug("Player killed by wave: {}", player.getName().getString());
                         return;
                     }
 
@@ -538,17 +514,19 @@ public class DivineLiberatorItem extends SwordItem {
                     Component newMessage = Component.translatable(
                             "death.attack.divine_liberator_escape",
                             player.getDisplayName(),
+                            attackerComponent,
                             source.getLocalizedDeathMessage(player)
                     );
                     event.setCanceled(true); // Cancel the default death handling
                     player.setHealth(0); // Ensure the player dies
                     player.level().getServer().getPlayerList().broadcastSystemMessage(newMessage, false);
-                    LOGGER.debug("Applied follow-up death message for player: " + player.getName().getString());
+                    LOGGER.debug("Applied follow-up death message for player: {} by attacker: {}", player.getName().getString(), attackerName);
                 }
             }
 
-            // Always remove the tag on death
+            // Always remove the tags on death
             player.getPersistentData().remove("DivineLiberatorCleansed");
+            player.getPersistentData().remove("DivineLiberatorAttacker");
         }
     }
 }

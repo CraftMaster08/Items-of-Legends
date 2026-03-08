@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "cm08createsmpitems:item/custom_sword"
+    "layer0": "itemsoflegends:item/cool_stick"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "commands.itemsoflegends.invalid_item": "Ungültiga Gegenstond: %s",
+  "commands.itemsoflegends.list.success": "Gegenständ: %s",
+  "commands.itemsoflegends.whitelist.add.failure": "%s konnt ned zur Whitelist für %s hinzuagfügt weadn",
+  "commands.itemsoflegends.whitelist.add.success": "%s zu da Whitelist für %s hinzuagfügt",
+  "commands.itemsoflegends.whitelist.list.empty": "Koane Spüla auf da Whitelist für %s",
+  "commands.itemsoflegends.whitelist.list.success": "Spüla auf da Whitelist für %s: %s",
+  "commands.itemsoflegends.whitelist.remove.success": "%s is von da Whitelist für %s entfeant wuan",
+  "commands.itemsoflegends.whitelist.remove.failure": "%s is ned auf da Whitelist für %s",
+  "death.attack.divine_liberator_wave": "%1$s wurd von da Ebnen der Existenz greinigt duach %2$s",
+  "death.attack.divine_liberator_escape": "%1$s erlog den Nochwiakungen von %2$s's §4§nGöttlichn Befreia",
+  "death.attack.immortal_shadow_strike": "%1$s hod si duachn Schottn gwundn, um %2$s an tödlichn Schlog zum vasetzn",
+  "itemGroup.itemsoflegends": "Gegnständ vou Legendn",
+  "item.itemsoflegends.cool_stick": "Supa Stock den I im woid gfundn hob",
+  "item.itemsoflegends.divine_liberator": "§4§nGöttlicha Befreia",
+  "item.itemsoflegends.divine_liberator.description": "§7A große Klingan, de an Hieb obfeiern kau, der ois durchschneid', sogar an Raum söbst.",
+  "item.itemsoflegends.immortal_shadow": "Unsterblicha Schottn",
+  "item.itemsoflegends.immortal_shadow.description": "§7I werd di vor am jedn Schodn bewoarn, den dia jegliche mächtige Woffn zuafügt.",
+  "item.itemsoflegends.immortal_shadow.no_safe_spot": "Unsterblicha Schottn kau kan Ort zum Teleportiern aufindn",
+  "item.itemsoflegends.immortal_shadow.no_target": "Unsterblicha Schottn kau kane Gegna aufindn",
+  "item.itemsoflegends.not_whitelisted": "Du kaust den Gegnstond ned verwenden"
+}
