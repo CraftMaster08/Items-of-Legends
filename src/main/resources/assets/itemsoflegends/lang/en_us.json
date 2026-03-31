@@ -22,7 +22,7 @@
   "item.itemsoflegends.reality_fracture.description": "§7Where did you come from, where did you go",
   "item.itemsoflegends.reality_fracture.invalid_dimension": "Reality Fracture could not find a valid target dimension",
   "item.itemsoflegends.reality_fracture.not_configured": "Reality Fracture is not configured. Shift-right-click to set dimensions first.",
-  "item.itemsoflegends.reality_fracture.tooltip.not_configured": "Not configured (no teleport)",
+  "item.itemsoflegends.reality_fracture.tooltip.not_configured": "Not configured",
   "item.itemsoflegends.reality_fracture.tooltip.configured": "Configured",
   "item.itemsoflegends.reality_fracture.tooltip.route": "Route: %1$s -> %2$s",
   "gui.itemsoflegends.reality_fracture.title": "Reality Fracture Configuration",

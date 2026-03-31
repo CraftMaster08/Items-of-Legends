@@ -22,7 +22,7 @@
   "item.itemsoflegends.reality_fracture.description": "§7Woher kamst du, wohin gingst du",
   "item.itemsoflegends.reality_fracture.invalid_dimension": "Realitätsbruch konnte keine gültige Zieldimension finden",
   "item.itemsoflegends.reality_fracture.not_configured": "Realitätsbruch ist nicht konfiguriert. Schleich-Rechtsklick zum Einstellen der Dimensionen.",
-  "item.itemsoflegends.reality_fracture.tooltip.not_configured": "Nicht konfiguriert (kein Teleport)",
+  "item.itemsoflegends.reality_fracture.tooltip.not_configured": "Nicht konfiguriert",
   "item.itemsoflegends.reality_fracture.tooltip.configured": "Konfiguriert",
   "item.itemsoflegends.reality_fracture.tooltip.route": "Route: %1$s -> %2$s",
   "gui.itemsoflegends.reality_fracture.title": "Realitätsbruch Konfiguration",
