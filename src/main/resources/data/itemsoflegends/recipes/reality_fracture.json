@@ -1,26 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " E ",
-    "SNS",
-    " O "
+    " # ",
+    "#n#",
+    "I# "
   ],
   "key": {
-    "E": {
-      "item": "minecraft:ender_eye"
+    "#": {
+      "item": "minecraft:dragon_breath"
     },
-    "S": {
-      "item": "minecraft:echo_shard"
+    "n": {
+      "item": "minecraft:netherite_ingot"
     },
-    "N": {
-      "item": "minecraft:nether_star"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
+    "I": {
+      "item": "itemsoflegends:cool_stick"
     }
   },
   "result": {
-    "item": "itemsoflegends:reality_fracture"
+    "item": "itemsoflegends:reality_fracture",
+    "count": 1
   }
 }
-
