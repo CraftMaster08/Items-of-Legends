@@ -17,7 +17,7 @@ public class WhitelistManager {
     private static final String WHITELIST_FILE = "config/itemsoflegends/whitelist.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Map<String, Set<String>> WHITELISTS = new HashMap<>();
-    private static final Set<String> VALID_ITEMS = new HashSet<>(Arrays.asList("divine_liberator", "custom_sword", "immortal_shadow"));
+    private static final Set<String> VALID_ITEMS = new HashSet<>(Arrays.asList("divine_liberator", "custom_sword", "immortal_shadow", "reality_fracture"));
 
     // Load the whitelist file on initialization
     static {
