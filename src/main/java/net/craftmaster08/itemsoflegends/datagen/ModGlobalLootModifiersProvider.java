@@ -25,33 +25,33 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
 
         add("cool_stick_from_acacia_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ACACIA_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_azalea_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.AZALEA_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_birch_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BIRCH_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_cherry_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CHERRY_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_dark_oak_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.DARK_OAK_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_flowering_azalea_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FLOWERING_AZALEA_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_jungle_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.JUNGLE_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_mangrove_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.MANGROVE_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_oak_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.OAK_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
         add("cool_stick_from_spruce_leaves", new AddItemModifier(new LootItemCondition[] {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SPRUCE_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.001f).build()}, ModItems.COOL_STICK.get()));
+                LootItemRandomChanceCondition.randomChance(0.01f).build()}, ModItems.COOL_STICK.get()));
     }
 }

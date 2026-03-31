@@ -47,7 +47,7 @@ public class CoolStickItem extends SwordItem {
         }
 
         // Check if the player is whitelisted for this item
-        if (!WhitelistManager.isPlayerWhitelisted(player, "custom_sword")) {
+        if (!WhitelistManager.isPlayerWhitelisted(player, "cool_stick")) {
             if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable("item.itemsoflegends.not_whitelisted"));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),

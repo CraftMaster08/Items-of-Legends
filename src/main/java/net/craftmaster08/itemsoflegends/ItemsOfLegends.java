@@ -3,6 +3,7 @@ package net.craftmaster08.itemsoflegends;
 import net.craftmaster08.itemsoflegends.damage.SpecialAbilityDefenseSystem;
 import net.craftmaster08.itemsoflegends.item.ModItems;
 import net.craftmaster08.itemsoflegends.loot.ModLootModifiers;
+import net.craftmaster08.itemsoflegends.network.ModNetwork;
 import net.craftmaster08.itemsoflegends.util.ModCommands;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -54,6 +55,8 @@ public class ItemsOfLegends {
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ModNetwork.register();
+
             // Initialize the defense system
             SpecialAbilityDefenseSystem defenseSystem = new SpecialAbilityDefenseSystem();
 

@@ -3,6 +3,7 @@ package net.craftmaster08.itemsoflegends.item;
 import net.craftmaster08.itemsoflegends.item.custom.CoolStickItem;
 import net.craftmaster08.itemsoflegends.item.custom.DivineLiberatorItem;
 import net.craftmaster08.itemsoflegends.item.custom.ImmortalShadowItem;
+import net.craftmaster08.itemsoflegends.item.custom.RealityFractureItem;
 import net.craftmaster08.itemsoflegends.ItemsOfLegends;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,6 +21,8 @@ public class ModItems {
             () -> new DivineLiberatorItem(new Item.Properties()));
     public static final RegistryObject<Item> IMMORTAL_SHADOW = ITEMS.register("immortal_shadow",
             () -> new ImmortalShadowItem(new Item.Properties().durability(1500)));
+    public static final RegistryObject<Item> REALITY_FRACTURE = ITEMS.register("reality_fracture",
+            () -> new RealityFractureItem(new Item.Properties()));
 
     public static void register(IEventBus eventbus) {
         ITEMS.register(eventbus);

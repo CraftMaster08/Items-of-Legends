@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#n#",
+    "I# "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:dragon_breath"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "I": {
+      "item": "itemsoflegends:cool_stick"
+    }
+  },
+  "result": {
+    "item": "itemsoflegends:reality_fracture",
+    "count": 1
+  }
+}

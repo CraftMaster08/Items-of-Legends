@@ -16,8 +16,10 @@ public class WhitelistManager {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String WHITELIST_FILE = "config/itemsoflegends/whitelist.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final String COOL_STICK_KEY = "cool_stick";
+    private static final String LEGACY_COOL_STICK_KEY = "custom_sword";
     private static final Map<String, Set<String>> WHITELISTS = new HashMap<>();
-    private static final Set<String> VALID_ITEMS = new HashSet<>(Arrays.asList("divine_liberator", "custom_sword", "immortal_shadow"));
+    private static final Set<String> VALID_ITEMS = new HashSet<>(Arrays.asList("divine_liberator", COOL_STICK_KEY, LEGACY_COOL_STICK_KEY, "immortal_shadow", "reality_fracture"));
 
     // Load the whitelist file on initialization
     static {
@@ -26,7 +28,11 @@ public class WhitelistManager {
 
     // Check if a player is whitelisted for an item
     public static boolean isPlayerWhitelisted(Player player, String itemName) {
-        Set<String> whitelist = WHITELISTS.getOrDefault(itemName, new HashSet<>());
+        Set<String> whitelist = new HashSet<>(WHITELISTS.getOrDefault(itemName, new HashSet<>()));
+        // Backward compatibility for older configs that used "custom_sword" for the Cool Stick.
+        if (COOL_STICK_KEY.equals(itemName) && whitelist.isEmpty()) {
+            whitelist.addAll(WHITELISTS.getOrDefault(LEGACY_COOL_STICK_KEY, new HashSet<>()));
+        }
         boolean isWhitelisted = whitelist.contains(player.getName().getString());
         LOGGER.debug("Checking whitelist for item '{}': Player '{}', Whitelist: {}, Allowed: {}",
                 itemName, player.getName().getString(), whitelist, isWhitelisted);
